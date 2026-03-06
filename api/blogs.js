@@ -53,6 +53,7 @@ export default async function handler(req, res) {
       }
       const blob = await put(`${BLOG_PREFIX}${slug}.json`, JSON.stringify(post), {
         contentType: 'application/json',
+        access: 'private',
       })
       return json(res, { ...post, blobUrl: blob.url }, 201)
     } catch (e) {
@@ -78,6 +79,7 @@ export default async function handler(req, res) {
       }
       const blob = await put(`${BLOG_PREFIX}${slug}.json`, JSON.stringify(post), {
         contentType: 'application/json',
+        access: 'private',
       })
       return json(res, { ...post, blobUrl: blob.url })
     } catch (e) {

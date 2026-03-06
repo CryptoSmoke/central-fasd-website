@@ -51,6 +51,7 @@ export default async function handler(req, res) {
       }
       const blob = await put(`${EVENT_PREFIX}${slug}.json`, JSON.stringify(event), {
         contentType: 'application/json',
+        access: 'private',
       })
       return json(res, { ...event, blobUrl: blob.url }, 201)
     } catch (e) {
@@ -74,6 +75,7 @@ export default async function handler(req, res) {
       }
       const blob = await put(`${EVENT_PREFIX}${slug}.json`, JSON.stringify(event), {
         contentType: 'application/json',
+        access: 'private',
       })
       return json(res, { ...event, blobUrl: blob.url })
     } catch (e) {
