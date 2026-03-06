@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       const { blobs } = await list({ prefix: EVENT_PREFIX })
       const events = await Promise.all(
         blobs.map(async (blob) => {
-          const r = await fetch(blob.url)
+          const r = await fetch(blob.downloadUrl)
           const data = await r.json()
           return { ...data, blobUrl: blob.url, pathname: blob.pathname }
         })
@@ -51,7 +51,6 @@ export default async function handler(req, res) {
       }
       const blob = await put(`${EVENT_PREFIX}${slug}.json`, JSON.stringify(event), {
         contentType: 'application/json',
-        access: 'public',
       })
       return json(res, { ...event, blobUrl: blob.url }, 201)
     } catch (e) {
@@ -75,7 +74,6 @@ export default async function handler(req, res) {
       }
       const blob = await put(`${EVENT_PREFIX}${slug}.json`, JSON.stringify(event), {
         contentType: 'application/json',
-        access: 'public',
       })
       return json(res, { ...event, blobUrl: blob.url })
     } catch (e) {

@@ -1,4 +1,4 @@
-import { put, list, del } from '@vercel/blob'
+import { put, list, del, head } from '@vercel/blob'
 
 const BLOG_PREFIX = 'content/blogs/'
 
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       const { blobs } = await list({ prefix: BLOG_PREFIX })
       const posts = await Promise.all(
         blobs.map(async (blob) => {
-          const r = await fetch(blob.url)
+          const r = await fetch(blob.downloadUrl)
           const data = await r.json()
           return { ...data, blobUrl: blob.url, pathname: blob.pathname }
         })
@@ -53,7 +53,6 @@ export default async function handler(req, res) {
       }
       const blob = await put(`${BLOG_PREFIX}${slug}.json`, JSON.stringify(post), {
         contentType: 'application/json',
-        access: 'public',
       })
       return json(res, { ...post, blobUrl: blob.url }, 201)
     } catch (e) {
@@ -79,7 +78,6 @@ export default async function handler(req, res) {
       }
       const blob = await put(`${BLOG_PREFIX}${slug}.json`, JSON.stringify(post), {
         contentType: 'application/json',
-        access: 'public',
       })
       return json(res, { ...post, blobUrl: blob.url })
     } catch (e) {
