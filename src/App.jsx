@@ -23,6 +23,7 @@ import Events from './pages/Events'
 import Blog from './pages/Blog'
 import PolicyDocuments from './pages/PolicyDocuments'
 import ReportingDocuments from './pages/ReportingDocuments'
+import Admin from './pages/Admin'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
           <Route path="blog" element={<Blog />} />
           <Route path="policy-documents" element={<PolicyDocuments />} />
           <Route path="reporting-documents" element={<ReportingDocuments />} />
+          <Route path="admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
